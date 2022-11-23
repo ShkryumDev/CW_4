@@ -24,7 +24,7 @@ class AuthService:
 
         data = {
             'username': user.username,
-            'role': user.role
+            'role': user.role,
         }
 
         access_token_lifetime = datetime.datetime.utcnow() + datetime.timedelta(minutes=60)

@@ -19,6 +19,8 @@ def create_app(config_object):
 
 def register_extensions(app):
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
     api = Api(app)
     api.add_namespace(director_ns)
     api.add_namespace(genre_ns)
