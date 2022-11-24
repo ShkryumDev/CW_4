@@ -31,23 +31,23 @@ class MoviesView(Resource):
         return "", 201, {"location": f"/movies/{movie.id}"}
 
 
-@movie_ns.route('/<int:rid>')
+@movie_ns.route("/<int:pk>")
 class MovieView(Resource):
     @auth_required
-    def get(self, rid):
-        b = movie_service.get_one(rid)
+    def get(self, pk):
+        b = movie_service.get_one(pk)
         sm_d = MovieSchema().dump(b)
         return sm_d, 200
 
     @admin_required
-    def put(self, bid):
+    def put(self, pk):
         req_json = request.json
         if "id" not in req_json:
-            req_json["id"] = bid
+            req_json["id"] = pk
         movie_service.update(req_json)
         return "", 204
 
     @admin_required
-    def delete(self, rid):
-        movie_service.delete(rid)
+    def delete(self, pk):
+        movie_service.delete(pk)
         return "", 204

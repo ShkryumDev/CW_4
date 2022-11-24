@@ -23,24 +23,24 @@ class GenresView(Resource):
         return '', 201, {'location': f'/genres/{genre.id}'}
 
 
-@genre_ns.route('/<int:rid>')
+@genre_ns.route('/<int:pk>')
 class GenreView(Resource):
     @auth_required
-    def get(self, rid):
-        r = genre_service.get_one(rid)
+    def get(self, pk):
+        r = genre_service.get_one(pk)
         sm_d = GenreSchema().dump(r)
         return sm_d, 200
 
     @admin_required
-    def put(self, rid):
+    def put(self, pk):
         request_json = request.json
         if 'id' not in request_json:
-            request_json['id'] = rid
+            request_json['id'] = pk
 
         genre_service.update(request_json)
         return '', 204
 
     @admin_required
-    def delete(self, rid):
-        genre_service.delete(rid)
+    def delete(self, pk):
+        genre_service.delete(pk)
         return '', 204

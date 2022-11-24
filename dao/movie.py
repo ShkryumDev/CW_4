@@ -5,8 +5,8 @@ class MovieDAO:
     def __init__(self, session):
         self.session = session
 
-    def get_one(self, rid):
-        return self.session.query(Movie).get(rid)
+    def get_one(self, pk):
+        return self.session.query(Movie).get(pk)
 
     def get_all(self):
         # А еще можно сделать так, вместо всех методов get_by_*
@@ -35,8 +35,8 @@ class MovieDAO:
         self.session.commit()
         return ent
 
-    def delete(self, rid):
-        movie = self.get_one(rid)
+    def delete(self, pk):
+        movie = self.get_one(pk)
         self.session.delete(movie)
         self.session.commit()
 

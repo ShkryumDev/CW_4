@@ -16,11 +16,11 @@ class AuthService:
         user = self.user_service.get_by_username(username)
 
         if user is None:
-            raise Exception()
+            raise Exception("user not found")
 
         if not is_refresh:
             if not self.user_service.compare_passwords(user.password, password):
-                raise Exception()
+                raise Exception(f"{user.password}, {password}")
 
         data = {
             'username': user.username,

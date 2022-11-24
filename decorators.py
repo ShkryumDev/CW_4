@@ -17,7 +17,7 @@ def auth_required(func):
         except Exception as e:
             print('JWT decode error', e)
             abort(401)
-        return func(*args, *kwargs)
+        return func(*args, **kwargs)
 
     return wrapper
 
@@ -38,6 +38,6 @@ def admin_required(func):
         except Exception as e:
             print('JWT decode error', e)
             abort(401)
-        return func(*args, *kwargs)
+        return func(*args, **kwargs)
 
     return wrapper

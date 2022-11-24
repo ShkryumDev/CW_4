@@ -23,24 +23,24 @@ class DirectorsView(Resource):
         return '', 201, {'location': f'/directors/{director.id}'}
 
 
-@director_ns.route('/<int:rid>')
+@director_ns.route('/<int:pk>')
 class DirectorView(Resource):
     @auth_required
-    def get(self, rid):
-        r = director_service.get_one(rid)
+    def get(self, pk):
+        r = director_service.get_one(pk)
         sm_d = DirectorSchema().dump(r)
         return sm_d, 200
 
     @admin_required
-    def put(self, rid):
+    def put(self, pk):
         request_json = request.json
         if 'id' not in request_json:
-            request_json['id'] = rid
+            request_json['id'] = pk
 
         director_service.update(request_json)
         return '', 204
 
     @admin_required
-    def delete(self, rid):
-        director_service.delete(rid)
+    def delete(self, pk):
+        director_service.delete(pk)
         return '', 204

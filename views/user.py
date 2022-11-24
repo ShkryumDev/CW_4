@@ -20,22 +20,22 @@ class UsersView(Resource):
         return '', 201, {'location': f'/users/{user.id}'}
 
 
-@user_ns.route('/<int:rid>')
+@user_ns.route('/<int:pk>')
 class UserView(Resource):
-    def get(self, rid):
-        r = user_service.get_one(rid)
+    def get(self, pk):
+        r = user_service.get_one(pk)
         sm_d = UserSchema().dump(r)
         return sm_d, 200
 
-    def put(self, rid):
+    def put(self, pk):
         request_json = request.json
         if 'id' not in request_json:
-            request_json['id'] = rid
+            request_json['id'] = pk
 
         user_service.update(request_json)
         return '', 204
 
-    def delete(self, rid):
-        user_service.delete(rid)
+    def delete(self, pk):
+        user_service.delete(pk)
         return '', 204
 
